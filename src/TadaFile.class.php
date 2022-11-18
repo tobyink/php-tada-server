@@ -151,7 +151,8 @@ class TadaFile {
 			$this->get( $user );
 		}
 		else {
-			echo "OK\n";
+			header( "HTTP/1.0 204 No Content" );
+			die();
 		}
 	}
 }
