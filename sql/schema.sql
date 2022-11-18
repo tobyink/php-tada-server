@@ -11,7 +11,7 @@ CREATE TABLE file (
   FOREIGN KEY(owner) REFERENCES user(id)
 );
 
-CREATE TABLE permissions (
+CREATE TABLE permission (
   file integer,
   user integer,
   read integer,

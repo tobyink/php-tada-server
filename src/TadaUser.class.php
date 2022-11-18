@@ -62,7 +62,19 @@ class TadaUser {
 		if ( $file->owner == $this->id ) {
 			return TRUE;
 		}
-		// TODO: "permissions" table
+
+		$sth = $db->prepare('
+			SELECT 1 AS found
+			FROM permission
+			WHERE file = ?
+			AND user = ?
+			AND read >= 1
+		');
+		$sth->execute( [ $file->id, $this->id ] );
+		if ( $result = $sth->fetch( PDO::FETCH_OBJ ) ) {
+			return TRUE;
+		}
+
 		return FALSE;
 	}
 
@@ -70,7 +82,19 @@ class TadaUser {
 		if ( $file->owner == $this->id ) {
 			return TRUE;
 		}
-		// TODO: "permissions" table
+
+		$sth = $db->prepare('
+			SELECT 1 AS found
+			FROM permission
+			WHERE file = ?
+			AND user = ?
+			AND write >= 1
+		');
+		$sth->execute( [ $file->id, $this->id ] );
+		if ( $result = $sth->fetch( PDO::FETCH_OBJ ) ) {
+			return TRUE;
+		}
+
 		return FALSE;
 	}
 }

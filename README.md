@@ -75,6 +75,13 @@ Host: SERVER
 Updating a file supports the `If-Match` and `If-Unmodified-Since` headers,
 which may help avoid race conditions.
 
+By default, all users can read and write files that they own, and the initial
+creator of a file will be the user to own it. The `permission` table may be
+used to provide read or write access to other users.
+
+There is currently no UI for creating new users, editing permissions,
+listing files, etc.
+
 ## Licence
 
 This project is triple licensed under the [Apache License, version 2.0](http://www.apache.org/licenses/LICENSE-2.0), the [MIT License](http://opensource.org/licenses/MIT), and the [GNU General Public License, version 2.0](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
