@@ -48,8 +48,18 @@ class TadaUser {
 
 	public static function from_request ( $db ) {
 
+		$http_auth = FALSE;
+		if ( $http_auth===FALSE && isset( $_SERVER['HTTP_AUTHORIZATION'] ) )
+			$http_auth = $_SERVER['HTTP_AUTHORIZATION'];
+		if ( $http_auth===FALSE && isset( $_SERVER['HTTP_X_TADA_AUTHORIZATION'] ) )
+			$http_auth = $_SERVER['HTTP_X_TADA_AUTHORIZATION'];
 		$headers = apache_request_headers();
-		if ( preg_match( '/Bearer\s*(\S+)/i', $headers['Authorization'], $matches ) ) {
+		if ( $http_auth===FALSE && isset( $headers['Authorization'] ) )
+			$http_auth = $headers['Authorization'];
+		if ( $http_auth===FALSE && isset( $headers['X-Tada-Authorization'] ) )
+			$http_auth = $headers['X-Tada-Authorization'];
+
+		if ( $http_auth!==FALSE && preg_match( '/Bearer\s*(\S+)/i', $http_auth, $matches ) ) {
 			$user  = TadaUser::from_token( $db, $matches[1] );
 			if ( $user !== FALSE ) {
 				return $user;

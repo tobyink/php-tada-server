@@ -38,7 +38,7 @@ The following HTTP `PUT` request should create a file:
 
 ```text
 PUT /PATH/index.php/some/file.txt
-Authenticate: Bearer ALICE-TOKEN-XYZ
+Authorization: Bearer ALICE-TOKEN-XYZ
 Content-Type: text/plain
 Host: SERVER
 
@@ -51,7 +51,7 @@ The following HTTP `PUT` request should update the file with new content:
 
 ```text
 PUT /PATH/index.php/some/file.txt
-Authenticate: Bearer ALICE-TOKEN-XYZ
+Authorization: Bearer ALICE-TOKEN-XYZ
 Content-Type: text/plain
 Host: SERVER
 
@@ -66,7 +66,7 @@ The following HTTP `GET` request should retrieve the file:
 
 ```text
 GET /PATH/index.php/some/file.txt
-Authenticate: Bearer ALICE-TOKEN-XYZ
+Authorization: Bearer ALICE-TOKEN-XYZ
 Host: SERVER
 ```
 
@@ -81,6 +81,13 @@ used to provide read or write access to other users.
 
 There is currently no UI for creating new users, editing permissions,
 listing files, etc.
+
+## Issues and Workarounds
+
+### The `Authorization` Header
+
+Apache sometimes hides this from environment variables for security reasons.
+Try using `X-Tada-Authorization` in that case.
 
 ## Licence
 
