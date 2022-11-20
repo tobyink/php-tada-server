@@ -48,7 +48,8 @@ class TadaUser {
 
 	public static function from_request ( $db ) {
 
-		if ( preg_match( '/Bearer\s*(\S+)/i', $_SERVER['HTTP_AUTHENTICATE'], $matches ) ) {
+		$headers = apache_request_headers();
+		if ( preg_match( '/Bearer\s*(\S+)/i', $headers['Authorization'], $matches ) ) {
 			$user  = TadaUser::from_token( $db, $matches[1] );
 			if ( $user !== FALSE ) {
 				return $user;
